@@ -5,10 +5,7 @@ import yes.mediumdifficulty.statgraphs.commands.CommandChart
 import yes.mediumdifficulty.statgraphs.commands.TabCompleterChart
 import yes.mediumdifficulty.statgraphs.files.FileStats
 import yes.mediumdifficulty.statgraphs.files.FileUUIDs
-import yes.mediumdifficulty.statgraphs.statisticlisteners.PlayerBlockBreak
-import yes.mediumdifficulty.statgraphs.statisticlisteners.PlayerBlockPlace
-import yes.mediumdifficulty.statgraphs.statisticlisteners.PlayerCraftItem
-import yes.mediumdifficulty.statgraphs.statisticlisteners.PlayerDeath
+import yes.mediumdifficulty.statgraphs.statisticlisteners.*
 
 class StatGraphs: JavaPlugin() {
     override fun onEnable() {
@@ -23,6 +20,12 @@ class StatGraphs: JavaPlugin() {
         registerCommands()
         registerEvents()
         enableMetrics()
+
+        (StatisticManager.serverStatisticListeners.find { it.name == "starts" } as ServerStarts).start()
+    }
+
+    override fun onDisable() {
+        (StatisticManager.serverStatisticListeners.find { it.name == "stops" } as ServerStops).stop()
     }
 
     private fun registerStatisticListeners() {
@@ -30,6 +33,14 @@ class StatGraphs: JavaPlugin() {
         PlayerBlockPlace().register()
         PlayerCraftItem().register()
         PlayerDeath().register()
+        PlayerConnect().register()
+        PlayerDisconnect().register()
+        PlayerEntityKill().register()
+
+        ServerLogins().register()
+        ServerDisconnects().register()
+        ServerStarts().register()
+        ServerStops().register()
     }
 
     private fun enableMetrics() {

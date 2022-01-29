@@ -18,8 +18,9 @@ object StatisticManager {
     fun registerListener(listener: AbstractStatisticListener) {
         if (listener is Listener) {
             Bukkit.getServer().pluginManager.registerEvents(listener, plugin)
-            plugin.logger.info("Registered listener for ${listener.javaClass.simpleName}")
         }
+
+        plugin.logger.info("Registered statistic: ${listener.statisticType.name.lowercase(Locale.getDefault())}.${listener.name}")
 
         when(listener.statisticType) {
             StatisticType.PLAYER -> playerStatisticListeners.add(listener)

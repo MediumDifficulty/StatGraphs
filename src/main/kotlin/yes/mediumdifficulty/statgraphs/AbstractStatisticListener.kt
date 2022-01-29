@@ -1,7 +1,6 @@
 package yes.mediumdifficulty.statgraphs
 
 import org.bukkit.OfflinePlayer
-import org.bukkit.entity.Player
 
 abstract class AbstractStatisticListener {
     abstract val name: String
@@ -29,8 +28,8 @@ abstract class AbstractStatisticListener {
         return StatisticManager.getServer(relativeStatisticPath, day)
     }
 
-    fun incrementServer(subPath: String, value: Int) {
-        StatisticManager.incrementServer("$relativeStatisticPath.$subPath", value)
+    fun incrementServer(subPath: String?, value: Int) {
+        StatisticManager.incrementServer("$relativeStatisticPath${if(subPath != null) ".$subPath" else ""}", value)
     }
 
     fun register() {

@@ -49,6 +49,10 @@ class CommandChart: CommandExecutor {
             sender.sendMessage("${ChatColor.RED}Please provide a valid statistic")
             return
         }
+        if(foundStatistic.statisticType == StatisticType.SERVER) {
+            sender.spigot().sendMessage(*render(foundStatistic, args, null))
+            return
+        }
         if(args.size == 1) {
             sender.sendMessage("${ChatColor.RED}Please provide a player name")
             return
