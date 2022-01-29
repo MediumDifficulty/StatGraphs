@@ -1,0 +1,20 @@
+name: StatGraphs
+version: 2.0.0
+main: yes.mediumdifficulty.statgraphs.StatGraphs
+api-version: 1.18
+author: MediumDifficulty
+description: A plugin that tracks player/server statistics
+load: STARTUP
+depend:
+  - Kotlin
+commands:
+  chart:
+    description: Shows a statistics chart
+    usage: /<command> [server|player] <arg2> <arg3> <arg4>
+    permission: command.chart
+    permission-message: §cYou do not have permission to access this command!
+
+permissions:
+  command.chart:
+    description: Allows a player to execute /chart
+    default: op
