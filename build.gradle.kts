@@ -31,6 +31,7 @@ tasks.withType<ShadowJar> {
     dependencies {
         exclude(dependency("org.jetbrains.kotlin:.*"))
     }
+    destinationDirectory.set(file("run\\plugins"))
 }
 
 application {

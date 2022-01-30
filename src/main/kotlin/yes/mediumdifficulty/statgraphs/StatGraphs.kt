@@ -15,7 +15,7 @@ class StatGraphs: JavaPlugin() {
         FileStats.init()
         FileUUIDs.init()
 
-        UUIDManager.init()
+        PlayerUUIDManager.init()
         registerStatisticListeners()
         registerCommands()
         registerEvents()
@@ -41,6 +41,7 @@ class StatGraphs: JavaPlugin() {
         ServerDisconnects().register()
         ServerStarts().register()
         ServerStops().register()
+        ServerNewPlayers().register()
     }
 
     private fun enableMetrics() {
@@ -57,6 +58,6 @@ class StatGraphs: JavaPlugin() {
     }
 
     private fun registerEvents() {
-        server.pluginManager.registerEvents(UUIDManager, this)
+        server.pluginManager.registerEvents(PlayerUUIDManager, this)
     }
 }

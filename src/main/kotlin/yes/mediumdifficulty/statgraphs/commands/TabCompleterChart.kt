@@ -4,7 +4,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import yes.mediumdifficulty.statgraphs.StatisticManager
-import yes.mediumdifficulty.statgraphs.UUIDManager
+import yes.mediumdifficulty.statgraphs.PlayerUUIDManager
 import java.util.*
 
 class TabCompleterChart: TabCompleter {
@@ -23,7 +23,7 @@ class TabCompleterChart: TabCompleter {
         if(args[0] == "player" && args.size == 2) return checkAlreadyCompleted(StatisticManager.playerStatisticListeners.map { it.name }, lArgs[1]).toMutableList()
 
         if(args[0] == "player" && args.size == 3) {
-            return checkAlreadyCompleted(UUIDManager.getNames(), args[2]).toMutableList()
+            return checkAlreadyCompleted(PlayerUUIDManager.getNames(), args[2]).toMutableList()
         }
 
         if(args[0] == "player" && args.size == 4) {

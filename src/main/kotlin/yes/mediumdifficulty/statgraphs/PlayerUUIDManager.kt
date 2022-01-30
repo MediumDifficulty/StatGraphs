@@ -7,8 +7,13 @@ import yes.mediumdifficulty.statgraphs.files.FileUUIDs
 import java.util.*
 import kotlin.collections.HashMap
 
-object UUIDManager: Listener {
+object PlayerUUIDManager: Listener {
     private val namedUUIDs = HashMap<String, UUID>()
+
+    val UUIDs: Collection<UUID>
+        get() { return namedUUIDs.values }
+    val playerNames: Collection<String>
+        get() { return namedUUIDs.keys }
 
     @EventHandler
     private fun onJoin(e: PlayerJoinEvent) {

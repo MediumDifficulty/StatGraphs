@@ -13,8 +13,7 @@ import org.bukkit.command.CommandSender
 import yes.mediumdifficulty.statgraphs.AbstractStatisticListener
 import yes.mediumdifficulty.statgraphs.StatisticManager
 import yes.mediumdifficulty.statgraphs.StatisticType
-import yes.mediumdifficulty.statgraphs.UUIDManager
-import java.text.DateFormat
+import yes.mediumdifficulty.statgraphs.PlayerUUIDManager
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.max
@@ -58,7 +57,7 @@ class CommandChart: CommandExecutor {
             return
         }
         if(foundStatistic.statisticType == StatisticType.PLAYER) {
-            val foundPLayerUUID = UUIDManager.getUUIDFromName(args[1])
+            val foundPLayerUUID = PlayerUUIDManager.getUUIDFromName(args[1])
             if(foundPLayerUUID == null) {
                 sender.sendMessage("${ChatColor.RED}Please provide a player name")
                 return

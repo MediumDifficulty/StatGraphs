@@ -5,8 +5,8 @@ metrics-enabled: true
 # Chart settings
 chart:
   # Chart width in characters
-  width: 20
+  width: 40
   # Chart height in characters
-  height: 10
+  height: 12
   # Chart date format
   date-format: "dd MMM yyyy"
