@@ -14,12 +14,14 @@ version = "2.0.0"
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://jitpack.io")
 }
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
     implementation("net.kyori:adventure-api:4.9.3")
     implementation("net.kyori:adventure-platform-bungeecord:4.0.1")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 }
 
 tasks.withType<KotlinCompile> {

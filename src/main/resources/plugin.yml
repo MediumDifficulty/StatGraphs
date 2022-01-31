@@ -7,14 +7,23 @@ description: A plugin that tracks player/server statistics
 load: STARTUP
 depend:
   - Kotlin
+softdepend:
+  - Vault
 commands:
   chart:
     description: Shows a statistics chart
-    usage: /<command> [server|player] <arg2> <arg3> <arg4>
+    usage: /<command> [server|player] <statistic> <player?> <specifier?>
     permission: command.chart
     permission-message: §cYou do not have permission to access this command!
-
+  statgraphs:
+    description: General command for StatGraphs
+    usage: /<command> reload
+    permission: command.statgraphs
+    permission-message: §cYou do not have permission to access this command!
 permissions:
   command.chart:
-    description: Allows a player to execute /chart
+    description: Allows a player to run /chart
+    default: op
+  command.statgraphs:
+    description: Allows a player to run /statgraphs
     default: op

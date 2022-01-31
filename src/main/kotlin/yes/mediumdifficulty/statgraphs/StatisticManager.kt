@@ -2,11 +2,10 @@ package yes.mediumdifficulty.statgraphs
 
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
-import org.bukkit.entity.Player
 import org.bukkit.event.Listener
+import org.bukkit.scheduler.BukkitRunnable
 import yes.mediumdifficulty.statgraphs.files.FileStats
 import java.util.*
-import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 
 object StatisticManager {
@@ -19,6 +18,14 @@ object StatisticManager {
         if (listener is Listener) {
             Bukkit.getServer().pluginManager.registerEvents(listener, plugin)
         }
+        if(listener is ScheduledStatistic) {
+            object: BukkitRunnable() {
+                override fun run() {
+                    listener.update()
+                }
+            }.runTaskTimer(plugin, 0, listener.updateInterval)
+        }
+
 
         plugin.logger.info("Registered statistic: ${listener.statisticType.name.lowercase(Locale.getDefault())}.${listener.name}")
 
@@ -26,6 +33,14 @@ object StatisticManager {
             StatisticType.PLAYER -> playerStatisticListeners.add(listener)
             StatisticType.SERVER -> serverStatisticListeners.add(listener)
         }
+    }
+
+    fun findPlayerStatistic(name: String): AbstractStatisticListener? {
+        return playerStatisticListeners.find { it.name == name }
+    }
+
+    fun findServerStatistic(name: String): AbstractStatisticListener? {
+        return serverStatisticListeners.find { it.name == name }
     }
 
     fun setStatistic(path: String, value: Int) {

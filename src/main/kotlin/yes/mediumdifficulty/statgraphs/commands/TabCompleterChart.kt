@@ -32,7 +32,7 @@ class TabCompleterChart: TabCompleter {
             return checkAlreadyCompleted(statistic.availableSpecifiers.toMutableList(), uArgs[3]).toMutableList()
         }
 
-        return null
+        return emptyList<String>().toMutableList()
     }
 
     private fun checkAlreadyCompleted(library: Collection<String>, typed: String): Collection<String> {

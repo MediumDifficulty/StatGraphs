@@ -13,15 +13,15 @@ abstract class AbstractStatisticListener {
     }
 
     fun getPlayer(player: OfflinePlayer, subPath: String?, day: Long): Int {
-        return StatisticManager.getPlayer("$relativeStatisticPath${if (subPath != null) ".$subPath" else ""}\"", player, day)
+        return StatisticManager.getPlayer("$relativeStatisticPath${if (subPath != null) ".$subPath" else ""}", player, day)
     }
 
     fun incrementPlayer(player: OfflinePlayer, subPath: String?, value: Int) {
-        StatisticManager.incrementPlayer("$relativeStatisticPath${if (subPath != null) ".$subPath" else ""}\"", player, value)
+        StatisticManager.incrementPlayer("$relativeStatisticPath${if (subPath != null) ".$subPath" else ""}", player, value)
     }
 
-    fun setServer(subPath: String, value: Int) {
-        StatisticManager.setServer("$relativeStatisticPath.$subPath", value)
+    fun setServer(subPath: String?, value: Int) {
+        StatisticManager.setServer("$relativeStatisticPath${if (subPath != null) ".$subPath" else ""}", value)
     }
 
     fun getServer(day: Long): Int {

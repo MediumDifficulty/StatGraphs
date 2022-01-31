@@ -1,11 +1,15 @@
 package yes.mediumdifficulty.statgraphs
 
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import yes.mediumdifficulty.statgraphs.commands.CommandChart
+import yes.mediumdifficulty.statgraphs.commands.CommandStatGraphs
 import yes.mediumdifficulty.statgraphs.commands.TabCompleterChart
+import yes.mediumdifficulty.statgraphs.commands.TabCompleterStatGraphs
 import yes.mediumdifficulty.statgraphs.files.FileStats
 import yes.mediumdifficulty.statgraphs.files.FileUUIDs
 import yes.mediumdifficulty.statgraphs.statisticlisteners.*
+import yes.mediumdifficulty.statgraphs.vault.VaultManager
 
 class StatGraphs: JavaPlugin() {
     override fun onEnable() {
@@ -16,10 +20,11 @@ class StatGraphs: JavaPlugin() {
         FileUUIDs.init()
 
         PlayerUUIDManager.init()
-        registerStatisticListeners()
         registerCommands()
         registerEvents()
         enableMetrics()
+        initialiseVault()
+        registerStatisticListeners()
 
         (StatisticManager.serverStatisticListeners.find { it.name == "starts" } as ServerStarts).start()
     }
@@ -42,6 +47,16 @@ class StatGraphs: JavaPlugin() {
         ServerStarts().register()
         ServerStops().register()
         ServerNewPlayers().register()
+
+        if(VaultManager.economyEnabled)
+            registerVaultStatistics()
+    }
+
+    private fun registerVaultStatistics() {
+        PlayerVaultBalance().register()
+
+        ServerVaultEcoTotal().register()
+        logger.info("Initialised vault statistics!")
     }
 
     private fun enableMetrics() {
@@ -55,9 +70,20 @@ class StatGraphs: JavaPlugin() {
     private fun registerCommands() {
         getCommand("chart")!!.setExecutor(CommandChart())
         getCommand("chart")!!.setTabCompleter(TabCompleterChart())
+
+        getCommand("statgraphs")!!.setExecutor(CommandStatGraphs())
+        getCommand("statgraphs")!!.setTabCompleter(TabCompleterStatGraphs())
     }
 
     private fun registerEvents() {
         server.pluginManager.registerEvents(PlayerUUIDManager, this)
+    }
+
+    private fun initialiseVault() {
+        if(Bukkit.getPluginManager().isPluginEnabled("Vault"))
+            VaultManager.enable()
+        else {
+            logger.warning("Not enabling vault hooks as plugin: Vault is not enabled / missing")
+        }
     }
 }
