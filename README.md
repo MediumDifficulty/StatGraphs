@@ -6,4 +6,4 @@ https://www.spigotmc.org/resources/stat-graphs.96597/
 
 
 uses Kyori's Adventure API
-https://docs.adventure.kyori.net/
+https://kyori.net/
