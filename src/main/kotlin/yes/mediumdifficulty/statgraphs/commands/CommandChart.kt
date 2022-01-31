@@ -31,8 +31,8 @@ class CommandChart: CommandExecutor {
             "server" -> subCategoryStatistic(sender, args.drop(1), StatisticManager.serverStatisticListeners)
             "player" -> subCategoryStatistic(sender, args.drop(1), StatisticManager.playerStatisticListeners)
             else -> {
-                sender.sendMessage("${ChatColor.RED}Please enter a valid category")
-                return false
+                sender.sendMessage("${ChatColor.RED}Please provide a valid category")
+                return true
             }
         }
         return true
